@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="money" translate="label" sortOrder="550">
+            <label>Disaster Relief</label>
+        </tab>
+        <section id="money" sortOrder="100" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Configurations</label>
+            <tab>money</tab>
+            <resource>Money_DisasterRelief::system_config</resource>
+            <group id="config" translate="label" sortOrder="10" type="text" showInDefault="1">
+                <label></label>
+                <field id="something" translate="label" sortOrder="10" type="text" showInDefault="1">
+                    <label>Not sure</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
+
