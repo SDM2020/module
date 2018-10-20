@@ -7,11 +7,12 @@ use Experius\DonationProduct\Api\Data\DonationsSearchResultsInterface;
 use Experius\DonationProduct\Api\Data\DonationsInterface;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Api\SearchCriteriaBuilder;
-use Magento\Framework\Api\SearchCriteriaInterface 
+use Magento\Framework\Api\SearchCriteriaInterface ;
 use Psr\Log\LoggerInterface;
 
 class PostDonations
 {
+
     /**
      * @var DonationsRepositoryInterface 
      */
@@ -42,11 +43,16 @@ class PostDonations
         /** @var DonationsInterface[] $donations */
         $donations = $this->getAllNonPostedDonations();
         if (empty($donations)) {
+            // nothing to do here!
             return;
         }
         
+        /** @var mixed[] $payloadBody */
         $payloadBody = [];
+        /** @var DonationsInterface $donation */
         foreach ($donations as $donation) {
+            $donation->setPosted(true);
+            $this->donationsRepo->save($donation);
             $payloadBody[] = $donation->getData();
         }
 
