@@ -10,10 +10,42 @@
             <label>Configurations</label>
             <tab>money</tab>
             <resource>Money_DisasterRelief::system_config</resource>
-            <group id="config" translate="label" sortOrder="10" type="text" showInDefault="1">
-                <label></label>
-                <field id="something" translate="label" sortOrder="10" type="text" showInDefault="1">
-                    <label>Not sure</label>
+            <group id="settings" translate="label" sortOrder="10" type="text" showInDefault="1">
+                <field id="api_endpoint" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Host Url</label>
+                    <validate>validate-url</validate>
+                </field>
+                <field id="auth_required" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Enable Basic Autentication</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="username" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Username</label>
+                    <depends>
+                        <field id="money/settings/auth_required">1</field>
+                    </depends>
+                </field>
+                <field id="password" translate="label" type="obscure" sortOrder="60" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Password</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                    <depends>
+                        <field id="money/settings/auth_required">1</field>
+                    </depends>
+                </field>
+                <field id="skip_ssl" translate="label" type="select" sortOrder="70" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Skip SSL Certificate Verification</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="cert_path" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>SSL Certificate</label>
+                    <comment>Must be an absolute path</comment>
+                    <depends>
+                        <field id="money/settings/skip_ssl">0</field>
+                    </depends>
+                </field>
+                <field id="test" translate="label" type="select" sortOrder="90" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Test Mode</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
             </group>
         </section>
