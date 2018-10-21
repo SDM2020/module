@@ -2,14 +2,13 @@
 
 namespace Money\DisasterRelief\Lib;
 
+use Money\DisasterRelief\Helper\System\Config;
 use Magento\Framework\HTTP\Client\CurlFactory;
 use Magento\Framework\Exception\LocalizedException;
 use Psr\Log\LoggerInterface;
 
 class Client
 {
-    const SANDBOX_ENPOINT = 'https://sandbox.api.visa.com/visadirect/fundstransfer/v1/pushfundstransactions'
-
     const PORT = 443;
 
     /**
@@ -18,15 +17,22 @@ class Client
     private $curlFactory;
 
     /**
+     * @var Config
+     */
+    private $config;
+
+    /**
      * @var LoggerInterface
      */
     private $logger;
 
     public function __construct(
         CurlFactory $curlFactory,
+        Config $config,
         LoggerInterface $logger
     ) {
         $this->curlFactory = $curlFactory;
+        $this->config = $config;
         $this->logger = $logger;
     }
 
@@ -38,12 +44,15 @@ class Client
      */
     public function post($endpoint, $payload)
     {
-        $isAuthRequired = false // @TODO make this a system config
+        /** @var bool $isHttps */
+        $isHttps = true; // @TODO should this be a config?
+        /** @var string[] $settings */
+        $settings = $this->config->getSettings($isHttps);
         /** @var \Magento\Framework\HTTP\Client\Curl $curl */
         $curl = $this->curlFactory->create();
-        if ($this->isTestMode($settings)) {
+        if (!!$settings['test']) {
             return $this->getDummyData();
-        } else if ($isAuthRequired) {
+        } else if (!!$settings['auth_required']) {
             $curl->setCredentials($settings['user'], $settings['pass']);
         }
         $curl->setOption(CURLOPT_PORT, static::PORT);
