@@ -68,7 +68,7 @@ class Config
         $url = $this->scopeConfig->getValue($uri);
         $parsedUrl = parse_url($url);
         $protocol = $isHttps ? 'https' : 'http';
-        return $protocol . '://' . $parsedUrl['host'];
+        return $protocol . '://' . $parsedUrl['host'] . $parsedUrl['path'];
     }
 }
 
