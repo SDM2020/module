@@ -93,38 +93,23 @@ class PostDonations
         $this->client->post(
             $settings['api_endpoint'],
             [
+                "magneticStripeData" => [
+                    "track2Data" => "4008310000000007D130310191014085"
+                ],
+                "acquirerCountryCode" => "840",
+                "pointOfServiceCapability" => [
+                    "posTerminalType" => 4,
+                    "posTerminalEntryCapability" => 2
+                ],
                 "pinData" => [
                     "securityRelatedControlInfo" => [
                         "pinBlockFormatCode" => 1,
-                        "zoneKeyIndex" => 1,
+                        "zoneKeyIndex" => 1
                     ],
+                    "pinDataBlock" => "1cd948f2b961b682"
                 ],
-                "magneticStripeData" => [
-                    "track1Data" => "1010101010101010101010101010",
-                    "track2Data" => "4008310000000007D130310191014085",
-                ],
-                "pullCardAcceptor" => [
-                    "idCode" => "VMT200911086070",
-                    "terminalId" => "365529",
-                ],
-                "transactionIdentifier" => "381228649430011",
-                "retrievalReferenceNumber" => "330000550000",
-                "pointOfServiceCapability" => [
-                    "posTerminalType" => 4,
-                    "posTerminalEntryCapability" => 2,
-                ],
-                "pointOfServiceData" => [
-                    "motoECIIndicator" => "0",
-                    "panEntryMode" => "90",
-                    "posConditionCode" => "0"
-                ],
-                "pullRetrievalReferenceNumber" => "717311813559",
-                "pullSystemsTraceAuditNumber" => "792155",
-                "systemsTraceAuditNumber" => "451000",
-                "magneticStripeData" => [
-                    "track1Data" => "1010101010101010101010101010",
-                    "track2Data" => "4008310000000007D130310191014085",
-                ],
+                "acquiringBin" => "408999",
+                "amount" => 350,
                 "businessApplicationId" => "AA",
                 "cardAcceptor" => [
                     "address" => [
@@ -137,18 +122,28 @@ class PostDonations
                     "name" => "Acceptor 1",
                     "terminalId" => "365539"
                 ],
-                "pushCardAcceptor" => [
-                    "idCode" => "VMT200911026070",
-                    "terminalId" => "375539",
-                ],
-                "Cavv" => "0000010926000071934977253000000000000000",
                 "localTransactionDateTime" => "2018-10-20T22:07:58",
-                "pullRetrievalReferenceNumber" => "717311813559",
-                "acquirerCountryCode" => "840",
-                "pushSystemsTraceAuditNumber" => "806805",
-                "pushRetrievalReferenceNumber" => "717311813560",
                 "merchantCategoryCode" => "6012",
                 "feeProgramIndicator" => 123,
+                "pointOfServiceData" => [
+                    "motoECIIndicator" => "0",
+                    "panEntryMode" => "90",
+                    "posConditionCode" => "0"
+                ],
+                "recipientName" => "rohan",
+                "recipientPrimaryAccountNumber" => "4957030420210462",
+                "retrievalReferenceNumber" => "330000550000",
+                "senderAccountNumber" => "4957030420210454",
+                "senderAddress" => "901 Metro Center Blvd",
+                "senderCity" => "Foster City",
+                "senderCountryCode" => "124",
+                "senderName" => "Mohammed Qasim",
+                "senderReference" => "",
+                "senderStateCode" => "CA",
+                "sourceOfFundsCode" => "05",
+                "systemsTraceAuditNumber" => "451000",
+                "transactionCurrencyCode" => "USD",
+                "transactionIdentifier" => "381228649430011"
             ]
             // [
             //     "magneticStripeData" => [
