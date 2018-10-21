@@ -13,8 +13,6 @@ use Psr\Log\LoggerInterface;
 
 class PostDonations
 {
-    const SANDBOX_ENPOINT = 'https://sandbox.api.visa.com/visadirect/fundstransfer/v1/pushfundstransactions';
-
     /**
      * @var Client 
      */
