@@ -6,6 +6,8 @@ use Magento\Framework\App\Config\ScopeConfigInterface;
 
 class Config
 {
+    const XML_MONEY_SETTINGS_HOST           = "money/settings/host";
+
     const XML_MONEY_SETTINGS_API            = "money/settings/api_endpoint";
 
     const XML_MONEY_SETTINGS_AUTH_REQUIRED  = "money/settings/auth_required";
@@ -42,9 +44,9 @@ class Config
             return $this->settings;
         }
         $this->settings = [
-            'host'              => $this->getSanitizedHost($isHttps),
+            'host'              => $this->getSanitizedHost($isHttps, self::XML_MONEY_SETTINGS_HOST),
+            'api_endpoint'      => $this->getSanitizedHost($isHttps, self::XML_MONEY_SETTINGS_API),
             'auth_required'     => $this->scopeConfig->getValue(self::XML_MONEY_SETTINGS_AUTH_REQUIRED),
-            'api_endpoint'      => $this->scopeConfig->getValue(self::XML_MONEY_SETTINGS_API),
             'user'              => $this->scopeConfig->getValue(self::XML_MONEY_SETTINGS_USER),
             'pass'              => $this->scopeConfig->getValue(self::XML_MONEY_SETTINGS_PASS),
             'skip_ssl'          => $this->scopeConfig->getValue(self::XML_MONEY_SETTINGS_SSL),
@@ -58,9 +60,9 @@ class Config
      * Ensure that we're using https protocol
      * to mitigate any SSRF concerns
      */
-    private function getSanitizedHost($isHttps) 
+    private function getSanitizedHost($isHttps, $uri) 
     {
-        $url = $this->scopeConfig->getValue(self::XML_MONEY_SETTINGS_API);
+        $url = $this->scopeConfig->getValue($uri);
         $parsedUrl = parse_url($url);
         $protocol = $isHttps ? 'https' : 'http';
         return $protocol . '://' . $parsedUrl['host'];

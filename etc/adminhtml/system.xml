@@ -11,6 +11,10 @@
             <tab>money</tab>
             <resource>Money_DisasterRelief::system_config</resource>
             <group id="settings" translate="label" sortOrder="10" type="text" showInDefault="1">
+                <field id="host" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Host Url</label>
+                    <validate>validate-url</validate>
+                </field>
                 <field id="api_endpoint" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
                     <label>Host Url</label>
                     <validate>validate-url</validate>
