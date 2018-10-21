@@ -117,6 +117,5 @@ class Client
     {
         return [];
     }
-
 }
 
