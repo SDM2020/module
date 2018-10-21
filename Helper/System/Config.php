@@ -16,6 +16,8 @@ class Config
 
     const XML_MONEY_SETTINGS_PASS           = "money/settings/password";
 
+    const XML_MONEY_SETTINGS_FUND           = "money/settings/fund_id";
+
     const XML_MONEY_SETTINGS_SSL            = "money/settings/skip_ssl";
 
     const XML_MONEY_SETTINGS_CERT           = "money/settings/cert_path";
@@ -49,6 +51,7 @@ class Config
             'auth_required'     => $this->scopeConfig->getValue(self::XML_MONEY_SETTINGS_AUTH_REQUIRED),
             'user'              => $this->scopeConfig->getValue(self::XML_MONEY_SETTINGS_USER),
             'pass'              => $this->scopeConfig->getValue(self::XML_MONEY_SETTINGS_PASS),
+            'fund_id'           => $this->scopeConfig->getValue(self::XML_MONEY_SETTINGS_FUND),
             'skip_ssl'          => $this->scopeConfig->getValue(self::XML_MONEY_SETTINGS_SSL),
             'cert_path'         => $this->scopeConfig->getValue(self::XML_MONEY_SETTINGS_CERT),
             'test'              => $this->scopeConfig->getValue(self::XML_MONEY_SETTINGS_TEST),
