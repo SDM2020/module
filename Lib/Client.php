@@ -68,7 +68,9 @@ class Client
                 $this->logger->error("Money_DisasterRelief: SSL Certificate does not exist");
                 throw new LocalizedException(__('Internal error during request to API'));
             }
-            $curl->setOption(CURLOPT_CAINFO, $settings['cert_path']);
+            $curl->setOption(CURLOPT_SSLCERT, $settings['cert_path']);
+            $curl->setOption(CURLOPT_SSLKEY, '/Users/Ethan/Downloads/key_4a8da678-7153-4a46-982a-8631e238cb38.pem');
+            $curl->setOption(CURLOPT_SSLCERTPASSWD, 'test');
         }
         $curl->addHeader('Content-Type', 'application/json');
         try {
@@ -76,6 +78,7 @@ class Client
             try {
                 $body = \Zend_Json::decode($curl->getBody());
             } catch (\Exception $e) {
+                $this->logger->error("Money_DisasterRelief: " . $e->getMessage());
                 // Handle non JSON response
                 $body = $curl->getBody();
             }
@@ -85,7 +88,7 @@ class Client
             ];
 
             if ($response['status'] >= 300 || $response['status'] < 200) {
-                $this->logger->error("Money_DisasterRelief: " . $body);
+                $this->logger->error("Money_DisasterRelief: Body:" . json_encode($body));
                 throw new LocalizedException(__('Internal error during request to API'));
             }
 
@@ -94,10 +97,9 @@ class Client
         } catch (\Exception $e) {
             $this->logger->critical(
                 sprintf(
-                    'Request to %s has failed with exception: %s; request data: %s; response: %s',
-                    $this->getRequestUrl(),
+                    'Requst failed with exception: %s; request data: %s; response: %s',
                     $e->getMessage(),
-                    json_encode($this->requestBody),
+                    json_encode($payload),
                     $curl->getBody()
                 )
             );
