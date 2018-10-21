@@ -72,7 +72,7 @@ class Client
         }
         $curl->addHeader('Content-Type', 'application/json');
         try {
-            $curl->post($endpoint, $post);
+            $curl->post($endpoint, $payload);
             try {
                 $body = \Zend_Json::decode($curl->getBody());
             } catch (\Exception $e) {

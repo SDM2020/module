@@ -1,6 +1,6 @@
 <?php
 
-namespace SomethingDigital\Camsnet\Helper\System;
+namespace Money\DisasterRelief\Helper\System;
 
 use Magento\Framework\App\Config\ScopeConfigInterface;
 
