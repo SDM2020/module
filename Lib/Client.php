@@ -69,7 +69,7 @@ class Client
                 throw new LocalizedException(__('Internal error during request to API'));
             }
             $curl->setOption(CURLOPT_SSLCERT, $settings['cert_path']);
-            $curl->setOption(CURLOPT_SSLKEY, $settings['key_path']);
+            $curl->setOption(CURLOPT_SSLCERTTYPE, 'P12');
             $curl->setOption(CURLOPT_SSLCERTPASSWD, $settings['cert_pass']);
         }
         $curl->addHeader('Content-Type', 'application/json');
