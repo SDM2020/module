@@ -2,16 +2,23 @@
 
 namespace Money\DisasterRelief\Cron;
 
+use Money\DisasterRelief\Lib\Client;
 use Experius\DonationProduct\Api\DonationsRepositoryInterface;
 use Experius\DonationProduct\Api\Data\DonationsSearchResultsInterface;
 use Experius\DonationProduct\Api\Data\DonationsInterface;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Api\SearchCriteriaBuilder;
-use Magento\Framework\Api\SearchCriteriaInterface ;
+use Magento\Framework\Api\SearchCriteriaInterface;
 use Psr\Log\LoggerInterface;
 
 class PostDonations
 {
+    const SANDBOX_ENPOINT = 'https://sandbox.api.visa.com/visadirect/fundstransfer/v1/pushfundstransactions';
+
+    /**
+     * @var Client 
+     */
+    private $client;
 
     /**
      * @var DonationsRepositoryInterface 
@@ -29,10 +36,12 @@ class PostDonations
     private $logger;
 
     public function __construct(
+        Client $client,
         DonationsRepositoryInterface $donationsRepo,
         SearchCriteriaBuilder $searchBuilder,
         LoggerInterface $logger
     ) {
+        $this->client = $client;
         $this->donationsRepo = $donationsRepo;
         $this->searchBuilder = $searchBuilder;
         $this->logger = $logger;
@@ -47,16 +56,24 @@ class PostDonations
             return;
         }
         
+        /** @var int $total */
+        $total = 0;
         /** @var mixed[] $payloadBody */
         $payloadBody = [];
         /** @var DonationsInterface $donation */
         foreach ($donations as $donation) {
             $donation->setPosted(true);
+            $total += $donation->getAmount();
             $this->donationsRepo->save($donation);
             $payloadBody[] = $donation->getData();
         }
 
-        // $this->client->post($payloadBody);
+        if ($total === 0) {
+            $this->logger->notice("Money_DisasterRelief: A total of " . count($donations) . " donations were parsed but no money was sent");
+            return;
+        }
+        $payloadBody['total'] = $total;
+        $this->client->post($payloadBody);
     }
 
     /**
