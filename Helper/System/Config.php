@@ -22,6 +22,10 @@ class Config
 
     const XML_MONEY_SETTINGS_CERT           = "money/settings/cert_path";
 
+    const XML_MONEY_SETTINGS_KEY            = "money/settings/key_path";
+
+    const XML_MONEY_SETTINGS_CERT_PASS      = "money/settings/cert_pass";
+
     const XML_MONEY_SETTINGS_TEST           = "money/settings/test";
 
     /**
@@ -54,6 +58,8 @@ class Config
             'fund_id'           => $this->scopeConfig->getValue(self::XML_MONEY_SETTINGS_FUND),
             'skip_ssl'          => $this->scopeConfig->getValue(self::XML_MONEY_SETTINGS_SSL),
             'cert_path'         => $this->scopeConfig->getValue(self::XML_MONEY_SETTINGS_CERT),
+            'key_path'          => $this->scopeConfig->getValue(self::XML_MONEY_SETTINGS_KEY),
+            'cert_pass'         => $this->scopeConfig->getValue(self::XML_MONEY_SETTINGS_CERT_PASS),
             'test'              => $this->scopeConfig->getValue(self::XML_MONEY_SETTINGS_TEST),
         ];
         return $this->settings;

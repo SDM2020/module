@@ -69,8 +69,8 @@ class Client
                 throw new LocalizedException(__('Internal error during request to API'));
             }
             $curl->setOption(CURLOPT_SSLCERT, $settings['cert_path']);
-            $curl->setOption(CURLOPT_SSLKEY, '/Users/Ethan/Downloads/key_4a8da678-7153-4a46-982a-8631e238cb38.pem');
-            $curl->setOption(CURLOPT_SSLCERTPASSWD, 'test');
+            $curl->setOption(CURLOPT_SSLKEY, $settings['key_path']);
+            $curl->setOption(CURLOPT_SSLCERTPASSWD, $settings['cert_pass']);
         }
         $curl->addHeader('Content-Type', 'application/json');
         try {
